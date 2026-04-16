@@ -28,13 +28,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.ict4h.openmrs</groupId>
-            <artifactId>openmrs-atomfeed-omod</artifactId>
+            <groupId>org.bahmni.module</groupId>
+            <artifactId>eventoutbox-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- Begin OpenMRS modules -->
-		
+
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-api</artifactId>
@@ -42,7 +42,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-atom-feed</artifactId>
+			<artifactId>${project.parent.artifactId}-events</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 				
@@ -105,12 +105,6 @@
 			<artifactId>legacyui-omod</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.ict4h</groupId>
-			<artifactId>atomfeed-server</artifactId>
-			<version>${atomfeed.version}</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
