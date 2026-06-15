@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 import UrlHelper from 'utilities/urlHelper';
+import {bahmniHomePath} from 'utilities/constants';
 
 require('./header.css');
 class Header extends React.Component {
@@ -13,11 +14,12 @@ class Header extends React.Component {
     };
 
     render() {
+        const homeUrl = localStorage.getItem('homeUrl') || bahmniHomePath;
         return (
             <nav>
                 <ul className="title-section">
                     <li>
-                        <a href={this.urlHelper.originPath() + '/openmrs'}>
+                        <a href={homeUrl}>
                             <i className="fa fa-home" aria-hidden="true" />
                         </a>
                     </li>
