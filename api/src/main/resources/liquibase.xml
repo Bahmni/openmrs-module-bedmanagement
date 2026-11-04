@@ -751,4 +751,47 @@
         <comment>Renaming column column_number to bed_column_number in table bed_location_map because column_number is a reserved word in MySQL 8.0.2 and later</comment>
         <renameColumn columnDataType="int" newColumnName="bed_column_number" oldColumnName="column_number" tableName="bed_location_map" />
     </changeSet>
+
+    <changeSet id="BM_202308131858" author="Lingeswaran">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM global_property WHERE property = 'eventoutbox.publish.eventsForBedTagMapChange';
+            </sqlCheck>
+        </preConditions>
+        <comment>Migrate atomfeed.publish.eventsForBedTagMapChange to eventoutbox.publish.eventsForBedTagMapChange, preserving custom values</comment>
+        <sql>
+            INSERT INTO global_property (property, property_value, uuid, description)
+            VALUES (
+                'eventoutbox.publish.eventsForBedTagMapChange',
+                COALESCE(
+                    (SELECT pv FROM (SELECT property_value AS pv FROM global_property WHERE property = 'atomfeed.publish.eventsForBedTagMapChange' LIMIT 1) AS t),
+                    'true'
+                ),
+                UUID(),
+                'If set to true, Spring events are published when a BedTagMap is saved or deleted'
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="BM_202308131859" author="Lingeswaran">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM global_property WHERE property = 'eventoutbox.event.urlPatternForBedTagMap';
+            </sqlCheck>
+        </preConditions>
+        <comment>Migrate atomfeed.event.urlPatternForBedTagMap to eventoutbox.event.urlPatternForBedTagMap, preserving custom values</comment>
+        <sql>
+            INSERT INTO global_property (property, property_value, uuid, description)
+            VALUES (
+                'eventoutbox.event.urlPatternForBedTagMap',
+                COALESCE(
+                    (SELECT pv FROM (SELECT property_value AS pv FROM global_property WHERE property = 'atomfeed.event.urlPatternForBedTagMap' LIMIT 1) AS t),
+                    '/openmrs/ws/rest/v1/bedTagMap/{uuid}'
+                ),
+                UUID(),
+                'URL pattern for BedTagMap events. Use {uuid} as placeholder for the BedTagMap UUID.'
+            );
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

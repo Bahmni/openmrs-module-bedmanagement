@@ -31,7 +31,7 @@
 
   <modules>
     <module>api</module>
-    <module>atom-feed</module>
+    <module>events</module>
     <module>owa</module>
     <module>omod</module>
   </modules>
@@ -41,8 +41,7 @@
     <openMRSRuntimeVersion>2.7.0</openMRSRuntimeVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <webservicesRestModuleVersion>3.0.0</webservicesRestModuleVersion>
-    <openmrsAtomfeedVersion>2.6.3</openmrsAtomfeedVersion>
-    <atomfeed.version>1.10.1</atomfeed.version>
+    <eventoutboxVersion>1.0.0-SNAPSHOT</eventoutboxVersion>
     <legacyuiVersion>2.0.0</legacyuiVersion>
     <log4jVersion>2.17.1</log4jVersion>
   </properties>
@@ -101,15 +100,9 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.ict4h.openmrs</groupId>
-        <artifactId>openmrs-atomfeed-omod</artifactId>
-        <version>${openmrsAtomfeedVersion}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.ict4h.openmrs</groupId>
-        <artifactId>openmrs-atomfeed-common</artifactId>
-        <version>${openmrsAtomfeedVersion}</version>
+        <groupId>org.bahmni.module</groupId>
+        <artifactId>eventoutbox-api</artifactId>
+        <version>${eventoutboxVersion}</version>
         <scope>provided</scope>
       </dependency>
       <!-- End OpenMRS core -->

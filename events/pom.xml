@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bedmanagement-atom-feed</artifactId>
+    <artifactId>bedmanagement-events</artifactId>
     <packaging>jar</packaging>
-    <name>Bed Management Module Atom Feed</name>
-    <description>AtomFeed connectors for Bed Management</description>
+    <name>Bed Management Module Events</name>
+    <description>Spring event publishing for Bed Management</description>
 
     <build>
         <resources>
@@ -45,15 +45,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.ict4h.openmrs</groupId>
-            <artifactId>openmrs-atomfeed-common</artifactId>
-            <version>${openmrsAtomfeedVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ict4h</groupId>
-            <artifactId>atomfeed-server</artifactId>
-            <version>${atomfeed.version}</version>
+            <groupId>org.bahmni.module</groupId>
+            <artifactId>eventoutbox-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -83,11 +76,6 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

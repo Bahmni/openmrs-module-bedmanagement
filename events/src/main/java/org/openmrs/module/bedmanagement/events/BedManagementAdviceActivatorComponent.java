@@ -1,4 +1,4 @@
-package org.openmrs.module.bedmanagement.atomfeed;
+package org.openmrs.module.bedmanagement.events;
 
 import org.aopalliance.aop.Advice;
 import org.openmrs.annotation.OpenmrsProfile;
@@ -8,12 +8,13 @@ import org.openmrs.module.bedmanagement.service.BedManagementService;
 import org.openmrs.module.bedmanagement.service.BedTagMapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Registers AOP advice when the context starts up. This is done instead of declaring advice in
  * config.xml in order to allow it to be conditionally loaded
  */
-@OpenmrsProfile(modules = { "openmrs-atomfeed:*" })
+@OpenmrsProfile(modules = { "eventoutbox:*" })
 public class BedManagementAdviceActivatorComponent implements BedManagementActivatorComponent {
 	
 	private static final Logger log = LoggerFactory.getLogger(BedManagementAdviceActivatorComponent.class);
@@ -22,13 +23,10 @@ public class BedManagementAdviceActivatorComponent implements BedManagementActiv
 	
 	private final BedTagMapAdvice bedTagMapAdvice;
 	
-	public BedManagementAdviceActivatorComponent() {
-		this(new BedAssignmentAdvice(), new BedTagMapAdvice());
-	}
-	
-	public BedManagementAdviceActivatorComponent(BedAssignmentAdvice bedAssignmentAdvice, BedTagMapAdvice bedTagMapAdvice) {
-		this.bedAssignmentAdvice = bedAssignmentAdvice;
-		this.bedTagMapAdvice = bedTagMapAdvice;
+	@Autowired
+	public BedManagementAdviceActivatorComponent(BedManagementEventPublisher eventPublisher) {
+		this.bedAssignmentAdvice = new BedAssignmentAdvice(eventPublisher);
+		this.bedTagMapAdvice = new BedTagMapAdvice(eventPublisher);
 	}
 	
 	protected void addAdvice(Class<?> advicePoint, Advice advice) {
