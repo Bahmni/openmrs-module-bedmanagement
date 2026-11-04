@@ -12,3 +12,6 @@ This module was originally built and bundled within the [Bahmni distribution](ht
 
 When sending a pull request to this repository, please ask someone working on the Bahmni product to help review and merge
 the pull request. You can do this by posting to https://talk.openmrs.org/c/software/bahmni
+
+<!-- Dummy change for CLA
+signing -->
