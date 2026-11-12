@@ -66,10 +66,13 @@ public class BedManagementDaoImpl implements BedManagementDao {
 	@Override
 	public Bed getBedByPatient(Patient patient) {
 		Session session = sessionFactory.getCurrentSession();
+		// Return the managed entity: a Bed built with aliasToBean only has id and bedNumber, and saving it (as
+		// unAssignPatientFromBed does) overwrote the bed's uuid, bed type and creator, or failed with
+		// NonUniqueObjectException when the bed was already in the session.
 		Bed bed = (Bed) session
-		        .createQuery("select bpa.bed.bedNumber as bedNumber,bpa.bed.id as id from BedPatientAssignment bpa "
+		        .createQuery("select bpa.bed from BedPatientAssignment bpa "
 		                + "where bpa.patient = :patient and bpa.endDatetime is null AND bpa.voided is false")
-		        .setParameter("patient", patient).setResultTransformer(Transformers.aliasToBean(Bed.class)).uniqueResult();
+		        .setParameter("patient", patient).uniqueResult();
 		return bed;
 	}
 	
